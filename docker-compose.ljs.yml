@@ -20,10 +20,12 @@ services:
       - open-webui:/app/backend/data
     depends_on:
       - ollama
-    expose:
-      - 8080
+    ports:
+      - ${OPEN_WEBUI_PORT-3000}:8080
     environment:
-      - 'OLLAMA_BASE_URL=http://ollama:11434'
+      - 'OLLAMA_BASE_URL=http://ollama:11434'  # 保留本地 Ollama
+      - 'OPENROUTER_API_KEY=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'  # 添加 OpenRouter API 密钥
+      - 'OPENROUTER_API_BASE=https://openrouter.ai/api/v1'  # OpenRouter 的 API 基础 URL
       - 'WEBUI_SECRET_KEY='
     extra_hosts:
       - host.docker.internal:host-gateway
